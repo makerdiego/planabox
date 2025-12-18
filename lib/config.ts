@@ -2,12 +2,31 @@
 // Edita aquí los precios, contactos y contenido sin tocar componentes
 
 export const config = {
+  // Promo principal (única promo)
+  promo: {
+    active: true,
+    size: "2 m²",
+    promoPrice: 49, // €/mes durante los primeros 3 meses
+    standardPrice: 64, // €/mes después de los 3 meses
+    months: 3, // Duración de la promo
+    maxUnits: 20, // Primeras 20 altas
+    badgeText: "Promo lanzamiento: 2 m² a 49€/mes durante 3 meses · primeras 20 altas",
+    disclaimer: "Después: 64€/mes. Oferta sujeta a disponibilidad.",
+  },
+
   // Contacto
   contact: {
-    whatsapp: "652922275", // Número sin espacios ni guiones para WhatsApp (652 92 22 75)
-    whatsappDisplay: "652 92 22 75", // Número con formato para mostrar
+    whatsapp: "644536626", // Número sin espacios ni guiones para WhatsApp (644 536 626)
+    whatsappDisplay: "644 536 626", // Número con formato para mostrar
     email: "info@planabox.es", // Email para contacto (opcional, no se muestra directamente)
     location: "Frente a la estación de tren de Castelló",
+    whatsappResponseTime: "Respondemos en horario comercial.",
+    // Coordenadas para el mapa
+    coordinates: {
+      lat: 39.98985784831499,
+      lng: -0.0510708180475834,
+      radiusMeters: 50, // Radio del círculo en metros
+    },
   },
 
   // Precios (IVA incluido)
@@ -15,26 +34,16 @@ export const config = {
     { size: "1,5 m²", price: 49, description: "Para maletas, cajas y bici" },
     { 
       size: "2,0 m²", 
-      price: 64, 
-      originalPrice: 64, // Precio original
-      promoPrice: 49, // Precio promocional para primeras reservas
+      price: 64, // Precio estándar
+      promoPrice: 49, // Precio promocional (primeros 3 meses)
       promoActive: true, // Activar promoción
+      promoMonths: 3, // Duración de la promo
       description: "Para maletas, cajas y bici",
-      promoText: "PROMO"
     },
     { size: "3,0 m²", price: 89, description: "Mudanza parcial, herramientas" },
     { size: "5,0 m²", price: 135, description: "Habitación completa" },
     { size: "8–9 m²", price: 179, description: "Mini-almacén" },
   ],
-
-  // Promoción especial
-  specialPromo: {
-    active: true,
-    badgeText: "Promo lanzamiento: 2 m² a 49€/mes (primeras reservas)",
-    title: "Promoción especial: 2m² al precio de 1,5m²",
-    description: "Trastero de 2m² a solo 49€/mes para las primeras reservas (precio normal: 64€/mes)",
-    limit: "Solo primeras reservas",
-  },
 
   // Features rápidas del hero (4 iconos)
   heroFeatures: [
@@ -84,30 +93,48 @@ export const config = {
     },
   ],
 
-  // Seguridad y acceso (ampliado)
-  securityFeatures: [
-    "Acceso 24/7",
-    "Llave móvil con permisos revocables",
-    "CCTV 24/7 con grabación",
-    "Alarma",
-    "Seguro: según modalidad",
-    "Puerta grande de carga",
-  ],
+  // Qué puedes guardar
+  allowedItems: {
+    title: "Qué puedes guardar",
+    items: [
+      "Herramientas",
+      "Escaleras",
+      "Cubos",
+      "Cajas, maletas",
+      "Bicicletas",
+      "Estanterías",
+      "Material seco (sin líquidos peligrosos)",
+    ],
+    description: "Puedes guardar herramientas, escaleras, cubos, cajas, maletas, bicis, estanterías y material seco sin problema.",
+  },
 
-  // Testimonios/Prueba social
-  testimonials: [
-    {
-      text: "Acceso 24/7 y puerta de carga: comodísimo. Puedo ir cuando quiero sin complicaciones.",
-      author: "Cliente",
-    },
-    {
-      text: "Lo de pagar automático me salva. No tengo que preocuparme de nada.",
-      author: "Cliente",
-    },
-    {
-      text: "Muy seguro y fácil de contratar. La llave móvil funciona perfecto.",
-      author: "Cliente",
-    },
+  // Qué no está permitido
+  prohibitedItems: {
+    title: "Qué no está permitido",
+    items: [
+      "Productos inflamables, tóxicos o peligrosos (gasolina, disolventes, pinturas abiertas, bombonas)",
+      "Alimentos perecederos",
+      "Animales",
+      "Materiales con olores fuertes",
+      "Cualquier contenido ilegal",
+    ],
+    description: "Por seguridad no se permite almacenar productos inflamables, tóxicos o peligrosos (gasolina, disolventes, pinturas abiertas, bombonas), alimentos perecederos, animales, materiales con olores fuertes ni cualquier contenido ilegal.",
+  },
+
+  // Responsabilidad y limpieza
+  responsibility: {
+    title: "Responsabilidad y limpieza",
+    description: "Cada cliente es responsable del uso de su trastero. El espacio debe devolverse en buen estado; si hubiera suciedad, manchas o daños, se repercutirá el coste de limpieza o reparación (normalmente contra fianza, si aplica). Los trasteros son para almacenaje, no para realizar actividades dentro.",
+  },
+
+  // Seguridad y acceso (consistente con seguro incluido)
+  securityFeatures: [
+    "CCTV 24/7",
+    "Alarma",
+    "Accesos controlados con llave móvil",
+    "Seguro incluido",
+    "Acceso 24/7",
+    "Puerta grande de carga",
   ],
 
   // FAQ (10 preguntas estratégicas)
@@ -124,8 +151,7 @@ export const config = {
     },
     {
       question: "¿Qué puedo guardar?",
-      answer:
-        "Puedes guardar herramientas, muebles, cajas, bicicletas, electrodomésticos y otros objetos de uso doméstico. No se permiten materiales inflamables, tóxicos, perecederos o ilegales.",
+      answer: "Puedes guardar herramientas, escaleras, cubos, cajas, maletas, bicis, estanterías y material seco sin problema. No se permite almacenar productos inflamables, tóxicos o peligrosos (gasolina, disolventes, pinturas abiertas, bombonas), alimentos perecederos, animales, materiales con olores fuertes ni cualquier contenido ilegal. Cada cliente es responsable del uso de su trastero. El espacio debe devolverse en buen estado; si hubiera suciedad, manchas o daños, se repercutirá el coste de limpieza o reparación (normalmente contra fianza, si aplica). Los trasteros son para almacenaje, no para realizar actividades dentro.",
     },
     {
       question: "¿Hay fianza?",
@@ -153,9 +179,9 @@ export const config = {
         "Sí, si hay disponibilidad puedes cambiar a un trastero más grande o más pequeño. Contacta con nosotros para conocer las condiciones.",
     },
     {
-      question: "¿Seguro incluido?",
+      question: "¿El seguro está incluido?",
       answer:
-        "El seguro disponible dependerá de la modalidad contratada. Te informaremos de las opciones disponibles durante el proceso de contratación.",
+        "Sí, seguro incluido con cobertura básica.",
     },
     {
       question: "¿Cómo doy de baja?",
@@ -164,21 +190,12 @@ export const config = {
     },
   ],
 
-  // Lista de espera y promoción
-  waitlist: {
-    enabled: true,
-    earlyBirdBenefit: "20% descuento en los primeros 3 meses",
-    earlyBirdLimit: 50, // Primeros 50 en la lista
-    comingSoon: "Próximamente en Castelló",
-    socialProof: "Apertura próxima · primeras unidades con promo",
-  },
-
   // SEO
   seo: {
     title: "PlanaBox | Trasteros en Castelló frente a la estación (24/7)",
     description:
       "Trasteros inteligentes en Castelló: acceso 24/7 con llave móvil, pago automático y máxima seguridad. Frente a la estación.",
-    ogImage: "/images/og-planabox.png",
+    ogImage: "/images/share.jpeg",
   },
 
   // Analytics events (placeholders)

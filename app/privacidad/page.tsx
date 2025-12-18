@@ -22,7 +22,7 @@ export default function Privacidad() {
               <ul className="list-disc pl-6 space-y-2">
                 <li><strong>Denominación:</strong> PlanaBox</li>
                 <li><strong>Dirección:</strong> Frente a la estación de tren de Castelló de la Plana</li>
-                <li><strong>Contacto:</strong> WhatsApp 652 92 22 75</li>
+                <li><strong>Contacto:</strong> WhatsApp 644 536 626</li>
               </ul>
             </section>
 
@@ -99,7 +99,7 @@ export default function Privacidad() {
                 <li><strong>Retirar el consentimiento:</strong> Retirar su consentimiento en cualquier momento</li>
               </ul>
               <p className="mt-4">
-                Para ejercer estos derechos, puede contactarnos por WhatsApp al 652 92 22 75.
+                Para ejercer estos derechos, puede contactarnos por WhatsApp al 644 536 626.
               </p>
             </section>
 
@@ -135,7 +135,7 @@ export default function Privacidad() {
               <h2 className="text-2xl font-bold text-brand-dark mb-4">11. Contacto</h2>
               <p>
                 Para cualquier consulta sobre esta Política de Privacidad o el tratamiento de sus datos, 
-                puede contactarnos por WhatsApp al 652 92 22 75.
+                puede contactarnos por WhatsApp al 644 536 626.
               </p>
             </section>
           </div>

@@ -12,7 +12,7 @@ import { google } from "googleapis";
 export async function appendToGoogleSheet(data: {
   name: string;
   phone: string;
-  email: string;
+  email?: string;
   size?: string;
   message?: string;
 }) {
@@ -56,7 +56,7 @@ export async function appendToGoogleSheet(data: {
       timestamp, // Fecha y hora
       data.name,
       data.phone,
-      data.email,
+      data.email || "No especificado",
       data.size || "No especificado",
       data.message || "Sin mensaje",
     ];

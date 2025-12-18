@@ -6,7 +6,7 @@ import { config } from "@/lib/config";
 export default function Hero() {
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      "Hola, me interesa conocer más sobre PlanaBox"
+      "Hola, me interesa la promo de 2 m² a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?"
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
@@ -15,10 +15,10 @@ export default function Hero() {
     config.analytics.trackEvent("whatsapp_click", { source: "hero" });
   };
 
-  const scrollToPricing = () => {
-    const pricingSection = document.getElementById("precios");
-    pricingSection?.scrollIntoView({ behavior: "smooth" });
-    config.analytics.trackEvent("cta_ver_precios", { source: "hero" });
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("lista-espera");
+    contactSection?.scrollIntoView({ behavior: "smooth" });
+    config.analytics.trackEvent("cta_reservar", { source: "hero" });
   };
 
   return (
@@ -31,10 +31,15 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
             {/* Badge grande de promo */}
-            {config.specialPromo.active && (
-              <div className="inline-flex items-center gap-2 px-5 py-3 bg-brand-primary/15 border-2 border-brand-primary/30 rounded-xl text-brand-primary font-bold text-lg mb-6">
-                <span className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></span>
-                {config.specialPromo.badgeText}
+            {config.promo.active && (
+              <div className="mb-6">
+                <div className="inline-flex items-center gap-2 px-5 py-3 bg-brand-primary/15 border-2 border-brand-primary/30 rounded-xl text-brand-primary font-bold text-lg mb-2">
+                  <span className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></span>
+                  {config.promo.badgeText}
+                </div>
+                <p className="text-sm text-gray-600 ml-1">
+                  {config.promo.disclaimer}
+                </p>
               </div>
             )}
 
@@ -44,21 +49,20 @@ export default function Hero() {
             
             <p className="text-xl md:text-2xl text-gray-700 mb-4 leading-relaxed">
               <span className="font-semibold text-brand-primary">Frente a la estación de tren.</span>
-              <span className="block mt-2">Acceso 24/7 con llave móvil y máxima seguridad.</span>
+              <span className="block mt-2">Acceso 24/7 con llave móvil, pago automático y máxima seguridad.</span>
             </p>
 
-            {/* Mini prueba social */}
-            <p className="text-gray-600 mb-8 italic">
-              {config.waitlist.socialProof}
+            <p className="text-gray-600 mb-8 text-lg">
+              Llave móvil + pago automático + recordatorios + suspensión de acceso
             </p>
 
             {/* Botones */}
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <button
-                onClick={scrollToPricing}
+                onClick={scrollToContact}
                 className="px-8 py-4 gradient-primary text-white rounded-xl font-bold text-lg shadow-glow hover:shadow-glow-hover transition-all transform hover:scale-105"
               >
-                Ver precios
+                Reservar ahora
               </button>
               <button
                 onClick={handleWhatsAppClick}

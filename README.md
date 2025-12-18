@@ -96,8 +96,10 @@ npm run build
 
 Si necesitas configurar variables de entorno en Vercel:
 
-- No hay variables obligatorias para el funcionamiento básico
+- **Google Sheets** (para el formulario): Consulta `GUIA_GOOGLE_SHEETS.md`
 - Para analytics, puedes agregar las keys necesarias en la configuración de Vercel
+
+**Nota:** El mapa usa Google Maps Embed (iframe), funciona directamente sin API key ni configuración adicional.
 
 ## 🔍 SEO
 

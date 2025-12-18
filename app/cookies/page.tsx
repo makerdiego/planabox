@@ -85,7 +85,7 @@ export default function Cookies() {
               <h2 className="text-2xl font-bold text-brand-dark mb-4">7. Contacto</h2>
               <p>
                 Si tiene alguna pregunta sobre nuestra Política de Cookies, puede contactarnos por WhatsApp 
-                al 652 92 22 75.
+                al 644 536 626.
               </p>
             </section>
           </div>

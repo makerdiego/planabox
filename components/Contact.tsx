@@ -9,7 +9,6 @@ export default function Contact() {
     phone: "",
     email: "",
     size: "",
-    date: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -47,12 +46,14 @@ export default function Contact() {
           source: "waitlist_form",
         });
         
-        setTimeout(() => {
-          setFormData({ name: "", phone: "", email: "", size: "", date: "", message: "" });
-        }, 5000);
+          setTimeout(() => {
+            setFormData({ name: "", phone: "", email: "", size: "", message: "" });
+          }, 5000);
       } else {
+        // Obtener el mensaje de error específico del servidor
+        const errorData = await response.json().catch(() => ({ error: "Error desconocido" }));
         setLoading(false);
-        alert("Hubo un error al enviar el formulario. Por favor, intenta de nuevo o contáctanos por WhatsApp.");
+        alert(errorData.error || "Hubo un error al enviar el formulario. Por favor, intenta de nuevo o contáctanos por WhatsApp.");
       }
     } catch (error) {
       console.error("Error al enviar formulario:", error);
@@ -62,9 +63,9 @@ export default function Contact() {
   };
 
   const handleWhatsAppClick = (size?: string) => {
-    const sizeText = size || "un trastero";
+    const sizeText = size || "2 m²";
     const message = encodeURIComponent(
-      `Hola, me interesa ${sizeText}. ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7?`
+      `Hola, me interesa la promo de ${sizeText} a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?`
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
@@ -81,10 +82,10 @@ export default function Contact() {
             📋 Únete a la lista de espera
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">
-            Sé uno de los primeros
+            Reserva tu trastero
           </h2>
           <p className="text-xl text-gray-600 mb-2 max-w-2xl mx-auto">
-            {config.waitlist.earlyBirdBenefit}
+            Promo limitada a primeras {config.promo.maxUnits} altas
           </p>
           <p className="text-gray-500">
             {config.contact.location}
@@ -177,17 +178,9 @@ export default function Contact() {
                     );
                   })}
                 </select>
-                <input
-                  type="date"
-                  name="date"
-                  placeholder="Fecha estimada (opcional)"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all bg-white"
-                />
                 <textarea
                   name="message"
-                  placeholder="Mensaje (opcional)"
+                  placeholder="Cuéntanos cuándo lo necesitarías o cualquier pregunta (opcional)"
                   rows={4}
                   value={formData.message}
                   onChange={handleInputChange}

@@ -6,7 +6,7 @@ import { config } from "@/lib/config";
 export default function Footer() {
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      "Hola, me interesa conocer más sobre PlanaBox"
+      "Hola, me interesa la promo de 2 m² a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?"
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,

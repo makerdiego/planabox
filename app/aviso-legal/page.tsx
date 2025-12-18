@@ -23,7 +23,7 @@ export default function AvisoLegal() {
               <ul className="list-disc pl-6 space-y-2">
                 <li><strong>Denominación:</strong> PlanaBox</li>
                 <li><strong>Dirección:</strong> Frente a la estación de tren de Castelló de la Plana</li>
-                <li><strong>Contacto:</strong> WhatsApp 652 92 22 75</li>
+                <li><strong>Contacto:</strong> 644 536 626</li>
               </ul>
             </section>
 

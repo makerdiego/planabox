@@ -7,6 +7,7 @@ import Installations from "@/components/Installations";
 import FAQ from "@/components/FAQ";
 import FAQSchema from "@/components/FAQSchema";
 import Contact from "@/components/Contact";
+import Location from "@/components/Location";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <Installations />
       <FAQ />
       <Contact />
+      <Location />
       <Footer />
     </main>
   );

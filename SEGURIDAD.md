@@ -97,5 +97,5 @@ Las siguientes variables están protegidas y NO deben subirse a Git:
 
 ## 📞 Contacto para Problemas de Seguridad
 
-Si detectas algún problema de seguridad, contacta por WhatsApp: **652 92 22 75**
+Si detectas algún problema de seguridad, contacta por WhatsApp: **644 536 626**
 

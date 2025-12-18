@@ -18,5 +18,7 @@ NEXT_PUBLIC_SITE_URL=https://planabox.es
 - Usa: https://jsonformatter.org/json-minify para convertir el JSON a una línea
 - NO subas este archivo a Git (ya está en .gitignore)
 
+**Nota:** El mapa usa Google Maps Embed (iframe), no requiere API key. Funciona directamente sin configuración adicional.
+
 Para más detalles, consulta `GUIA_GOOGLE_SHEETS.md`
 

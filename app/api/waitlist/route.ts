@@ -63,36 +63,43 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     let { name, phone, email, size, message } = body;
 
-    // Validación básica
-    if (!name || !phone || !email) {
+    // Validación básica (email es opcional)
+    if (!name || !phone) {
       return NextResponse.json(
-        { error: "Faltan campos requeridos" },
+        { error: "Faltan campos requeridos: nombre y teléfono son obligatorios" },
         { status: 400 }
       );
     }
 
     // Sanitizar y validar datos
     name = sanitizeText(name, 100);
-    email = email.trim().toLowerCase();
     phone = phone.trim();
 
-    if (!isValidEmail(email)) {
-      return NextResponse.json(
-        { error: "Email inválido" },
-        { status: 400 }
-      );
-    }
-
-    if (!isValidPhone(phone)) {
-      return NextResponse.json(
-        { error: "Teléfono inválido" },
-        { status: 400 }
-      );
-    }
-
+    // Validar nombre (debe tener al menos 2 caracteres después de sanitizar)
     if (name.length < 2) {
       return NextResponse.json(
         { error: "El nombre debe tener al menos 2 caracteres" },
+        { status: 400 }
+      );
+    }
+
+    // Email es opcional, pero si se proporciona debe ser válido
+    if (email && email.trim()) {
+      email = email.trim().toLowerCase();
+      if (!isValidEmail(email)) {
+        return NextResponse.json(
+          { error: "El formato del email no es válido" },
+          { status: 400 }
+        );
+      }
+    } else {
+      email = undefined; // Si no se proporciona, lo dejamos como undefined
+    }
+
+    // Validar teléfono (formato español: 9-15 dígitos, puede incluir espacios, guiones, paréntesis)
+    if (!isValidPhone(phone)) {
+      return NextResponse.json(
+        { error: "El formato del teléfono no es válido. Debe tener entre 9 y 15 dígitos" },
         { status: 400 }
       );
     }
@@ -106,7 +113,7 @@ export async function POST(request: NextRequest) {
         await appendToGoogleSheet({
           name,
           phone,
-          email,
+          email, // Puede ser undefined si no se proporciona
           size,
           message,
         });
