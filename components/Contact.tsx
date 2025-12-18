@@ -9,6 +9,7 @@ export default function Contact() {
     phone: "",
     email: "",
     size: "",
+    date: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -30,7 +31,6 @@ export default function Contact() {
     setLoading(true);
     
     try {
-      // Intentar enviar al API endpoint
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: {
@@ -40,7 +40,6 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        // Éxito: mostrar mensaje de confirmación
         setSubmitted(true);
         setLoading(false);
         config.analytics.trackEvent("waitlist_signup", {
@@ -48,36 +47,34 @@ export default function Contact() {
           source: "waitlist_form",
         });
         
-        // Reset form after 5 seconds (pero mantener el mensaje)
         setTimeout(() => {
-          setFormData({ name: "", phone: "", email: "", size: "", message: "" });
+          setFormData({ name: "", phone: "", email: "", size: "", date: "", message: "" });
         }, 5000);
       } else {
-        // Si falla el API, mostrar error
         setLoading(false);
         alert("Hubo un error al enviar el formulario. Por favor, intenta de nuevo o contáctanos por WhatsApp.");
       }
     } catch (error) {
-      // Si hay error, mostrar mensaje
       console.error("Error al enviar formulario:", error);
       setLoading(false);
       alert("Hubo un error al enviar el formulario. Por favor, intenta de nuevo o contáctanos por WhatsApp.");
     }
   };
 
-  const handleWhatsAppClick = () => {
+  const handleWhatsAppClick = (size?: string) => {
+    const sizeText = size || "un trastero";
     const message = encodeURIComponent(
-      "Hola, me interesa conocer más sobre PlanaBox"
+      `Hola, me interesa ${sizeText}. ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7?`
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
       "_blank"
     );
-    config.analytics.trackEvent("whatsapp_click", { source: "contact" });
+    config.analytics.trackEvent("whatsapp_click", { source: "contact", size });
   };
 
   return (
-    <section id="lista-espera" className="py-20 bg-white scroll-mt-20 relative">
+    <section id="lista-espera" className="py-20 bg-gradient-light scroll-mt-20 relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-block px-4 py-2 bg-brand-primary/10 border border-brand-primary/20 rounded-full text-brand-primary font-semibold mb-4">
@@ -95,14 +92,14 @@ export default function Contact() {
         </div>
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-          {/* Información de contacto */}
+          {/* WhatsApp */}
           <div>
             <h3 className="text-2xl font-bold text-brand-dark mb-6">
               O contáctanos por WhatsApp
             </h3>
             <div className="space-y-4 mb-8">
               <button
-                onClick={handleWhatsAppClick}
+                onClick={() => handleWhatsAppClick()}
                 className="w-full px-6 py-4 gradient-primary text-white rounded-xl font-bold text-lg shadow-glow hover:shadow-glow-hover transition-all transform hover:scale-105 flex items-center justify-center gap-3"
               >
                 <svg
@@ -115,14 +112,13 @@ export default function Contact() {
                 Hablar por WhatsApp
               </button>
               <div className="text-center text-gray-600">
-                <p className="font-semibold text-lg mb-1">{config.contact.whatsappDisplay}</p>
                 <p className="text-sm">Responde rápido, normalmente en menos de 1 hora</p>
               </div>
             </div>
           </div>
 
           {/* Formulario */}
-          <div className="bg-gradient-to-br from-brand-light to-white p-8 rounded-2xl shadow-xl border border-gray-100">
+          <div className="bg-gradient-to-br from-white to-brand-light p-8 rounded-2xl shadow-xl border border-gray-100">
             <h3 className="text-2xl font-bold text-brand-dark mb-6">
               Formulario de lista de espera
             </h3>
@@ -159,8 +155,7 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email *"
-                  required
+                  placeholder="Email (opcional)"
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all"
@@ -171,16 +166,28 @@ export default function Contact() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all bg-white"
                 >
-                  <option value="">Tamaño de interés (opcional)</option>
-                  {config.pricing.map((item, index) => (
-                    <option key={index} value={item.size}>
-                      {item.size} - {item.price}€/mes
-                    </option>
-                  ))}
+                  <option value="">Tamaño de interés</option>
+                  {config.pricing.map((item, index) => {
+                    const hasPromo = (item as any).promoActive && (item as any).promoPrice;
+                    const displayPrice = hasPromo ? (item as any).promoPrice : item.price;
+                    return (
+                      <option key={index} value={item.size}>
+                        {item.size} - {displayPrice}€/mes
+                      </option>
+                    );
+                  })}
                 </select>
+                <input
+                  type="date"
+                  name="date"
+                  placeholder="Fecha estimada (opcional)"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all bg-white"
+                />
                 <textarea
                   name="message"
-                  placeholder="Cuéntanos qué necesitas guardar o cualquier pregunta (opcional)"
+                  placeholder="Mensaje (opcional)"
                   rows={4}
                   value={formData.message}
                   onChange={handleInputChange}
@@ -214,4 +221,3 @@ export default function Contact() {
     </section>
   );
 }
-

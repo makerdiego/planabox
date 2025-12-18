@@ -1,68 +1,64 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Installations() {
+  const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
+
+  const images = [
+    {
+      src: "/images/storage-corridor.png",
+      alt: "Pasillo de trasteros PlanaBox",
+      title: "Pasillos",
+      description: "Espacios amplios y bien iluminados para fácil acceso",
+      placeholderText: "Usando: storage-corridor.png",
+    },
+    {
+      src: "/images/facility-unit.png",
+      alt: "Interior de trastero PlanaBox de 2m²",
+      title: "Interior 2m²",
+      description: "Trastero de 2m² con altura de 2,4m para aprovechar el espacio",
+      placeholderText: "Añadir imagen: facility-unit.png",
+    },
+  ];
+
+  const handleImageError = (index: number) => {
+    setImageErrors((prev) => ({ ...prev, [index]: true }));
+  };
+
   return (
-    <section className="py-20 bg-gradient-light">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">
-              Nuestras instalaciones
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Espacios modernos, limpios y seguros diseñados para proteger tus pertenencias
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/images/storage-corridor.png"
-                alt="Instalaciones PlanaBox - Pasillo con trasteros"
-                fill
-                className="object-cover"
-                priority
-              />
+        <h2 className="text-3xl md:text-4xl font-bold text-brand-dark text-center mb-12">
+          Nuestras instalaciones
+        </h2>
+        <div className={`grid gap-8 max-w-6xl mx-auto ${images.length === 1 ? 'md:grid-cols-1 max-w-2xl' : images.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+          {images.map((img, index) => (
+            <div key={index} className="group">
+              <div className="relative h-[300px] bg-gradient-to-br from-brand-light to-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mb-4">
+                {!imageErrors[index] ? (
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-contain p-4"
+                    onError={() => handleImageError(index)}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400">
+                    <div className="text-center p-4">
+                      <p className="text-sm">{img.placeholderText}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <h3 className="text-xl font-bold text-brand-dark mb-2">{img.title}</h3>
+              <p className="text-gray-600">{img.description}</p>
             </div>
-
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-xl font-bold text-brand-dark mb-3">
-                  Instalaciones modernas
-                </h3>
-                <p className="text-gray-700">
-                  Nuestros trasteros están diseñados con los más altos estándares de calidad. 
-                  Espacios bien iluminados, limpios y organizados que garantizan la protección 
-                  de tus pertenencias.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-xl font-bold text-brand-dark mb-3">
-                  Acceso cómodo
-                </h3>
-                <p className="text-gray-700">
-                  Pasillos amplios y bien iluminados que facilitan el acceso a tu trastero. 
-                  Diseñado para que puedas mover tus pertenencias sin dificultades, con 
-                  altura suficiente para cargar cómodamente.
-                </p>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-xl font-bold text-brand-dark mb-3">
-                  Seguridad 24/7
-                </h3>
-                <p className="text-gray-700">
-                  Todas las instalaciones están vigiladas con CCTV las 24 horas del día. 
-                  Sistema de alarma y control de accesos que garantiza la seguridad de 
-                  tus pertenencias en todo momento.
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
-

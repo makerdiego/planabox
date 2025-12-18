@@ -1,6 +1,8 @@
-# 🚀 Guía de Deploy: Git + Vercel
+# 🚀 Guía: Git + Vercel
 
 Esta guía te ayudará a subir tu proyecto a GitHub y desplegarlo en Vercel.
+
+> 📋 **Nota:** Si necesitas configurar Google Sheets, consulta primero `GUIA_GOOGLE_SHEETS.md` para desarrollo local, y luego añade las variables de entorno en Vercel como se indica en el Paso 9.
 
 ---
 
@@ -127,37 +129,43 @@ Haz clic en **"Deploy"**
 
 ---
 
-## ⚙️ Paso 9: Configurar Variables de Entorno en Vercel
+## ⚙️ Paso 9: Configurar Variables de Entorno en Vercel (para Google Sheets)
 
-**MUY IMPORTANTE:** Debes añadir las variables de entorno de Google Sheets.
+**⚠️ OBLIGATORIO si quieres que el formulario funcione en producción.**
+
+Si ya configuraste Google Sheets localmente (ver `GUIA_GOOGLE_SHEETS.md`), ahora debes añadir las mismas variables en Vercel:
 
 1. En el dashboard de Vercel, ve a tu proyecto `planabox`
 2. Ve a **"Settings"** → **"Environment Variables"**
-3. Añade estas 3 variables:
+3. Añade estas 3 variables (las mismas que tienes en `.env.local`):
 
-   **Variable 1:**
+   **Variable 1: GOOGLE_SHEET_ID**
    - Key: `GOOGLE_SHEET_ID`
-   - Value: `1DDJqm6xEcrfFVWBmRAHuxKdYmSnle3R9yHiSLw17S28`
+   - Value: El ID de tu hoja (copiado de la URL de Google Sheets)
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Haz clic en **"Save"**
 
-   **Variable 2:**
+   **Variable 2: GOOGLE_SHEET_NAME**
    - Key: `GOOGLE_SHEET_NAME`
-   - Value: `Hoja 1`
+   - Value: `Hoja 1` (o el nombre de tu pestaña)
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Haz clic en **"Save"**
 
-   **Variable 3:**
+   **Variable 3: GOOGLE_SHEETS_CREDENTIALS**
    - Key: `GOOGLE_SHEETS_CREDENTIALS`
-   - Value: `{"type":"service_account",...}` (el JSON completo en una línea, el mismo que tienes en `.env.local`)
+   - Value: El JSON completo en una línea (el mismo que tienes en `.env.local`)
+     - Debe estar todo en una sola línea
+     - Copia exactamente desde tu `.env.local`
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Haz clic en **"Save"**
 
-4. Opcional - Variable para URL:
+4. **Opcional - Variable para URL:**
    - Key: `NEXT_PUBLIC_SITE_URL`
    - Value: `https://planabox.vercel.app` (o tu dominio personalizado)
    - Environments: ✅ Production, ✅ Preview, ✅ Development
    - Haz clic en **"Save"**
+
+> 💡 **Ayuda:** Si no tienes configurado Google Sheets todavía, consulta primero `GUIA_GOOGLE_SHEETS.md` para desarrollo local.
 
 ### 9.1. Redeploy después de añadir variables
 
@@ -173,9 +181,13 @@ Después de añadir las variables de entorno:
 ## ✅ Paso 10: Verificar que funciona
 
 1. Vercel te dará una URL tipo: `https://planabox.vercel.app`
-2. Visita la URL y verifica que todo funciona
-3. Prueba el formulario de lista de espera
-4. Verifica que los datos se guarden en Google Sheets
+2. Visita la URL y verifica que la página carga correctamente
+3. Si configuraste Google Sheets:
+   - Prueba el formulario de lista de espera
+   - Verifica que los datos se guarden en tu Google Sheet
+4. Si no configuraste Google Sheets todavía:
+   - El formulario mostrará un mensaje de error
+   - Consulta `GUIA_GOOGLE_SHEETS.md` para configurarlo
 
 ---
 

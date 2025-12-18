@@ -1,6 +1,8 @@
-# 📋 Guía Paso a Paso: Configurar Google Sheets para el Formulario
+# 📋 Guía: Configurar Google Sheets para el Formulario
 
 Esta guía te llevará de la mano para que cuando alguien rellene el formulario, los datos se guarden automáticamente en una hoja de Google Sheets.
+
+> 💡 **Nota:** Esta guía es para configuración **local** (desarrollo). Para producción en Vercel, después de seguir esta guía, consulta `DEPLOY.md` sección "Paso 9" para añadir las variables de entorno en Vercel.
 
 ## ✅ Lo que vamos a hacer
 

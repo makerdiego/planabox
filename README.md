@@ -123,12 +123,22 @@ Eventos trackeados:
 - **Tailwind CSS**
 - **React 18**
 
-## 📝 Formulario de contacto
+## 📝 Formulario de lista de espera
 
-El formulario actualmente usa `mailto:` como fallback. Para integrar con un endpoint:
+El formulario guarda los datos automáticamente en Google Sheets.
 
-1. Crea un API route en `app/api/contact/route.ts`
-2. Actualiza `handleSubmit` en `components/Contact.tsx` para hacer fetch a ese endpoint
+### Configuración rápida:
+
+1. **Para desarrollo local:** Consulta `GUIA_GOOGLE_SHEETS.md`
+2. **Para producción (Vercel):** Consulta `DEPLOY.md` para Git + Vercel (incluye cómo añadir variables en Vercel)
+3. **Resumen rápido:** Consulta `INICIO_RAPIDO.md` para ver todos los pasos
+
+### Guías separadas:
+
+- **`GUIA_GOOGLE_SHEETS.md`** - Configurar Google Sheets para desarrollo local
+- **`DEPLOY.md`** - Subir a Git y deploy en Vercel (incluye cómo añadir variables en Vercel)
+- **`INICIO_RAPIDO.md`** - Resumen rápido de todos los pasos
+- **`CONFIGURAR_ENV.md`** - Cómo crear el archivo .env.local
 
 ## 📄 Licencia
 

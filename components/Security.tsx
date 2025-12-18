@@ -3,7 +3,7 @@ import { config } from "@/lib/config";
 
 export default function Security() {
   return (
-    <section className="py-20 bg-white">
+    <section id="seguridad" className="py-20 bg-white scroll-mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-brand-dark text-center mb-12">
           Seguridad y acceso
@@ -37,12 +37,12 @@ export default function Security() {
                 ))}
               </ul>
             </div>
-            <div className="relative h-[300px] bg-gradient-to-br from-brand-light to-white rounded-2xl shadow-xl flex items-center justify-center border border-gray-100">
+            <div className="relative h-[300px] bg-gradient-to-br from-brand-light to-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
               <Image
                 src="/images/security-icon.png"
                 alt="Seguridad PlanaBox"
                 fill
-                className="object-contain p-8"
+                className="object-contain p-4"
               />
             </div>
           </div>
@@ -51,4 +51,3 @@ export default function Security() {
     </section>
   );
 }
-

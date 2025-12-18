@@ -1,30 +1,28 @@
+"use client";
+
 import { config } from "@/lib/config";
 
 export default function PricingTable() {
+  const scrollToForm = () => {
+    const formSection = document.getElementById("lista-espera");
+    formSection?.scrollIntoView({ behavior: "smooth" });
+    config.analytics.trackEvent("cta_consultar_disponibilidad", { source: "pricing" });
+  };
+
   return (
-    <section id="precios" className="py-20 bg-gradient-light scroll-mt-20">
+    <section id="precios" className="py-20 bg-white scroll-mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-brand-dark text-center mb-4">
-          Precios previstos
+          Precios
         </h2>
         <p className="text-center text-gray-600 mb-2">
           IVA incluido
         </p>
-        {config.specialPromo.active && (
-          <div className="bg-brand-primary/10 border-2 border-brand-primary/30 rounded-xl p-4 max-w-2xl mx-auto mb-4">
-            <p className="text-brand-primary font-bold text-lg mb-1">
-              🎁 {config.specialPromo.title}
-            </p>
-            <p className="text-brand-dark font-semibold">
-              {config.specialPromo.description}
-            </p>
-          </div>
-        )}
-        <p className="text-center text-brand-primary font-semibold mb-12">
-          Los primeros {config.waitlist.earlyBirdLimit} obtendrán un 20% de descuento en los primeros 3 meses
+        <p className="text-center text-sm text-gray-500 mb-12">
+          Promos limitadas para primeras unidades. Sujeta a disponibilidad.
         </p>
 
-        <div className="max-w-4xl mx-auto mt-12">
+        <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <table className="w-full">
               <thead className="gradient-primary text-white">
@@ -56,7 +54,7 @@ export default function PricingTable() {
                           {item.size}
                           {hasPromo && (
                             <span className="px-2 py-1 bg-brand-primary text-white text-xs font-bold rounded-full">
-                              ¡OFERTA!
+                              {(item as any).promoText || "PROMO"}
                             </span>
                           )}
                         </div>
@@ -72,11 +70,6 @@ export default function PricingTable() {
                             {promoPrice}€
                           </span>
                           <span className="text-gray-500 text-sm">/mes</span>
-                          {hasPromo && (
-                            <span className="text-xs text-brand-primary font-semibold mt-1">
-                              {(item as any).promoText}
-                            </span>
-                          )}
                         </div>
                       </td>
                       <td className="px-6 py-5 text-gray-700 hidden md:table-cell">
@@ -88,9 +81,18 @@ export default function PricingTable() {
               </tbody>
             </table>
           </div>
+
+          {/* CTA debajo de la tabla */}
+          <div className="text-center mt-8">
+            <button
+              onClick={scrollToForm}
+              className="px-8 py-4 gradient-primary text-white rounded-xl font-bold text-lg shadow-glow hover:shadow-glow-hover transition-all transform hover:scale-105"
+            >
+              Consultar disponibilidad
+            </button>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

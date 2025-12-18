@@ -5,6 +5,11 @@
 @layer base {
   body {
     @apply bg-brand-light text-brand-dark;
+    padding-top: 0; /* El header sticky maneja el espacio */
+  }
+  
+  html {
+    scroll-padding-top: 5rem; /* Compensa el header sticky al hacer scroll a secciones */
   }
 }
 
