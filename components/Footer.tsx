@@ -6,7 +6,7 @@ import { config } from "@/lib/config";
 export default function Footer() {
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      "Hola, me interesa la promo de 2 m² a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?"
+      "Hola, me interesa un trastero pequeño desde 49€/mes. ¿Hay disponibilidad?"
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
@@ -111,6 +111,11 @@ export default function Footer() {
                 Pre-lanzamiento - Lista de espera activa
               </p>
             </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-gray-700 text-center">
+            <p className="text-sm text-gray-300 font-medium">
+              Sin permanencias largas. Sin letra pequeña. Sin complicaciones.
+            </p>
           </div>
         </div>
       </div>

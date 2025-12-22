@@ -29,28 +29,40 @@ export const config = {
     },
   },
 
-  // Precios (IVA incluido)
+  // Precios (IVA incluido) - Simplificado a 3 categorías principales
   pricing: [
-    { size: "1,5 m²", price: 49, description: "Para maletas, cajas y bici" },
-    { 
-      size: "2,0 m²", 
-      price: 64, // Precio estándar
-      promoPrice: 49, // Precio promocional (primeros 3 meses)
-      promoActive: true, // Activar promoción
-      promoMonths: 3, // Duración de la promo
-      description: "Para maletas, cajas y bici",
+    {
+      category: "Pequeños",
+      size: "≈ 1,5 – 2 m²",
+      price: 49,
+      description: "Cajas, maletas, bicicletas y herramientas.",
+      promoActive: true,
+      promoPrice: 49,
+      promoMonths: 3,
     },
-    { size: "3,0 m²", price: 89, description: "Mudanza parcial, herramientas" },
-    { size: "5,0 m²", price: 135, description: "Habitación completa" },
-    { size: "8–9 m²", price: 179, description: "Mini-almacén" },
+    {
+      category: "Medianos",
+      size: "≈ 3 – 4 m²",
+      price: 89,
+      description: "Mudanza parcial o material profesional.",
+    },
+    {
+      category: "Grandes",
+      size: "≈ 5 – 6 m²",
+      price: 135,
+      description: "Habitación completa o trastero familiar.",
+    },
+    {
+      category: "XL / Especiales",
+      size: "≈ 8 m² o más",
+      price: null,
+      description: "Consultar disponibilidad",
+      isConsultar: true,
+    },
   ],
 
-  // Features rápidas del hero (4 iconos)
+  // Features rápidas del hero (3 iconos)
   heroFeatures: [
-    {
-      title: "Llave móvil",
-      icon: "🔑",
-    },
     {
       title: "Pago automático",
       icon: "💳",
@@ -147,7 +159,7 @@ export const config = {
     {
       question: "¿Cómo funciona la llave móvil?",
       answer:
-        "Descargas nuestra app, recibes tus credenciales y accedes al trastero escaneando un código QR o usando la función de apertura remota. Puedes gestionar permisos y compartir acceso si lo necesitas.",
+        "El acceso al centro se realiza mediante PIN personal, activo mientras los pagos estén al día. Recibes tu pin personal y accedes al recinto. Cada cliente cierra su trastero con candado propio. PlanaBox no dispone de llaves ni acceso al interior de los trasteros.",
     },
     {
       question: "¿Qué puedo guardar?",
@@ -166,7 +178,7 @@ export const config = {
     {
       question: "¿Qué pasa si hay impago?",
       answer:
-        "Te enviamos recordatorios antes del vencimiento. Si no se realiza el pago, se suspende el acceso según las condiciones contratadas hasta regularizar la situación.",
+        "El acceso al recinto está vinculado al cumplimiento de las obligaciones de pago. En caso de impago, se enviarán avisos automáticos y el acceso podrá suspenderse hasta la regularización. Si el impago se prolonga, el contrato podrá resolverse conforme a las condiciones y a los procedimientos legales correspondientes.",
     },
     {
       question: "¿Cómo elijo tamaño?",
@@ -182,6 +194,11 @@ export const config = {
       question: "¿El seguro está incluido?",
       answer:
         "Sí, seguro incluido con cobertura básica.",
+    },
+    {
+      question: "¿Hay descuentos por larga duración?",
+      answer:
+        "Sí. Ofrecemos un 10% de descuento pagando 6 meses por adelantado y un 15% de descuento pagando 12 meses por adelantado. Es una opción ideal si buscas estabilidad y ahorro.",
     },
     {
       question: "¿Cómo doy de baja?",

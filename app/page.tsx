@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import PricingTable from "@/components/PricingTable";
+import AdvancePayment from "@/components/AdvancePayment";
+import WhyPlanaBox from "@/components/WhyPlanaBox";
 import SizeContents from "@/components/SizeContents";
 import Security from "@/components/Security";
 import Installations from "@/components/Installations";
@@ -17,6 +19,8 @@ export default function Home() {
       <Header />
       <Hero />
       <PricingTable />
+      <AdvancePayment />
+      <WhyPlanaBox />
       <SizeContents />
       <Security />
       <Installations />

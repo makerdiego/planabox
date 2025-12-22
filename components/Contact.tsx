@@ -62,16 +62,15 @@ export default function Contact() {
     }
   };
 
-  const handleWhatsAppClick = (size?: string) => {
-    const sizeText = size || "2 m²";
+  const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Hola, me interesa la promo de ${sizeText} a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?`
+      "Hola, me interesa un trastero pequeño desde 49€/mes. ¿Hay disponibilidad?"
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
       "_blank"
     );
-    config.analytics.trackEvent("whatsapp_click", { source: "contact", size });
+    config.analytics.trackEvent("whatsapp_click", { source: "contact" });
   };
 
   return (
@@ -100,7 +99,7 @@ export default function Contact() {
             </h3>
             <div className="space-y-4 mb-8">
               <button
-                onClick={() => handleWhatsAppClick()}
+                onClick={handleWhatsAppClick}
                 className="w-full px-6 py-4 gradient-primary text-white rounded-xl font-bold text-lg shadow-glow hover:shadow-glow-hover transition-all transform hover:scale-105 flex items-center justify-center gap-3"
               >
                 <svg
@@ -113,7 +112,7 @@ export default function Contact() {
                 Hablar por WhatsApp
               </button>
               <div className="text-center text-gray-600">
-                <p className="text-sm">Responde rápido, normalmente en menos de 1 hora</p>
+                <p className="text-sm">{config.contact.whatsappResponseTime}</p>
               </div>
             </div>
           </div>
@@ -168,12 +167,19 @@ export default function Contact() {
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all bg-white"
                 >
                   <option value="">Tamaño de interés</option>
-                  {config.pricing.map((item, index) => {
-                    const hasPromo = (item as any).promoActive && (item as any).promoPrice;
-                    const displayPrice = hasPromo ? (item as any).promoPrice : item.price;
+                  {config.pricing.map((item: any, index) => {
+                    if (item.isConsultar) {
+                      return (
+                        <option key={index} value={item.size}>
+                          {item.category} - {item.size}
+                        </option>
+                      );
+                    }
+                    const hasPromo = item.promoActive && item.promoPrice;
+                    const displayPrice = hasPromo ? item.promoPrice : item.price;
                     return (
                       <option key={index} value={item.size}>
-                        {item.size} - {displayPrice}€/mes
+                        {item.category ? `${item.category} (${item.size})` : item.size} - Desde {displayPrice}€/mes
                       </option>
                     );
                   })}

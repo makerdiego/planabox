@@ -9,16 +9,15 @@ export default function PricingTable() {
     config.analytics.trackEvent("cta_consultar_disponibilidad", { source: "pricing" });
   };
 
-  const handleWhatsAppClick = (size?: string) => {
-    const sizeText = size || "2 m²";
+  const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Hola, me interesa la promo de ${sizeText} a 49€/mes (3 meses). ¿Hay disponibilidad? ¿Cómo funciona el acceso 24/7 con llave móvil?`
+      "Hola, me interesa un trastero pequeño desde 49€/mes. ¿Hay disponibilidad?"
     );
     window.open(
       `https://wa.me/34${config.contact.whatsapp.replace(/\D/g, "")}?text=${message}`,
       "_blank"
     );
-    config.analytics.trackEvent("whatsapp_click", { source: "pricing", size });
+    config.analytics.trackEvent("whatsapp_click", { source: "pricing" });
   };
 
   return (
@@ -49,11 +48,12 @@ export default function PricingTable() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {config.pricing.map((item, index) => {
-                  const hasPromo = (item as any).promoActive && (item as any).promoPrice;
-                  const promoPrice = hasPromo ? (item as any).promoPrice : item.price;
+                {config.pricing.map((item: any, index) => {
+                  const hasPromo = item.promoActive && item.promoPrice;
+                  const promoPrice = hasPromo ? item.promoPrice : item.price;
                   const standardPrice = hasPromo ? item.price : null;
-                  const promoMonths = hasPromo ? (item as any).promoMonths : null;
+                  const promoMonths = hasPromo ? item.promoMonths : null;
+                  const isConsultar = item.isConsultar;
                   
                   return (
                     <tr
@@ -63,34 +63,42 @@ export default function PricingTable() {
                       }`}
                     >
                       <td className="px-6 py-5 font-semibold text-brand-dark text-lg">
-                        <div className="flex items-center gap-2">
-                          {item.size}
-                          {hasPromo && (
-                            <span className="px-2 py-1 bg-brand-primary text-white text-xs font-bold rounded-full">
-                              PROMO
-                            </span>
+                        <div className="flex flex-col gap-1">
+                          {item.category && (
+                            <span className="font-bold text-brand-primary">{item.category}</span>
                           )}
+                          <div className="flex items-center gap-2">
+                            {item.size}
+                            {hasPromo && (
+                              <span className="px-2 py-1 bg-brand-primary text-white text-xs font-bold rounded-full">
+                                PROMO
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </td>
                       <td className="px-6 py-5 text-right">
                         <div className="flex flex-col items-end">
-                          {hasPromo && standardPrice && (
+                          {isConsultar ? (
+                            <span className="font-semibold text-gray-600">
+                              Consultar disponibilidad
+                            </span>
+                          ) : hasPromo && standardPrice ? (
                             <>
                               <span className="text-gray-400 text-sm line-through">
                                 {standardPrice}€/mes
                               </span>
                               <span className="font-bold text-brand-primary text-2xl">
-                                {promoPrice}€/mes
+                                Desde {promoPrice}€/mes
                               </span>
                               <span className="text-xs text-brand-primary font-semibold">
                                 (por {promoMonths} meses)
                               </span>
                             </>
-                          )}
-                          {!hasPromo && (
+                          ) : (
                             <>
                               <span className="font-bold text-brand-primary text-2xl">
-                                {item.price}€
+                                Desde {item.price}€
                               </span>
                               <span className="text-gray-500 text-sm">/mes</span>
                             </>
@@ -107,8 +115,18 @@ export default function PricingTable() {
             </table>
           </div>
 
+          {/* Texto recomendado */}
+          <div className="text-center mt-6 mb-8">
+            <p className="text-gray-700 text-lg">
+              ¿No sabes qué tamaño elegir? Escríbenos y te ayudamos sin compromiso.
+            </p>
+            <p className="text-gray-600 mt-2">
+              El tamaño más elegido es <span className="font-semibold text-brand-primary">Pequeños (2 m²)</span>.
+            </p>
+          </div>
+
           {/* CTAs debajo de la tabla */}
-          <div className="text-center mt-8 space-y-4">
+          <div className="text-center space-y-4">
             <button
               onClick={scrollToForm}
               className="px-8 py-4 gradient-primary text-white rounded-xl font-bold text-lg shadow-glow hover:shadow-glow-hover transition-all transform hover:scale-105"
@@ -117,7 +135,7 @@ export default function PricingTable() {
             </button>
             <div>
               <button
-                onClick={() => handleWhatsAppClick("2 m²")}
+                onClick={handleWhatsAppClick}
                 className="px-6 py-3 bg-white text-brand-primary rounded-xl font-semibold shadow-md hover:shadow-lg transition-all border-2 border-brand-primary hover:bg-brand-light inline-flex items-center gap-2"
               >
                 <svg
@@ -129,6 +147,9 @@ export default function PricingTable() {
                 </svg>
                 WhatsApp
               </button>
+              <p className="text-sm text-gray-600 mt-2">
+                {config.contact.whatsappResponseTime}
+              </p>
             </div>
           </div>
         </div>
